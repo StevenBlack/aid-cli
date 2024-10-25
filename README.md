@@ -74,7 +74,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
  | aid help    | Print this message or the help of the given subcommand(s) |
 ```
 ## All commands:
-
+ [More info](https://timmoth.github.io/aid-cli/)
 ```
 | version    | command                | description                                                |
 |------------|------------------------|------------------------------------------------------------|

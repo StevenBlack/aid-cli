@@ -137,3 +137,17 @@ pub fn url_decode(input: &String) {
         .decode_utf8_lossy()
         .to_string());
 }
+
+pub fn replace(source: String, pattern: &str, replace: &str) {
+    let re = Regex::new(pattern).expect("Invalid regex pattern");
+    let result = re.replace_all(&source, replace).to_string();
+    
+    println!("{}", result);
+}
+
+pub fn count(source: String, pattern: &str) {
+    let re = Regex::new(pattern).expect("Invalid regex pattern");
+    let match_count = re.find_iter(&source).count();
+    
+    println!("{}", match_count);
+}

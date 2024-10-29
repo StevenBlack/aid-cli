@@ -6,15 +6,18 @@ use std::str;
 use base64::engine::general_purpose::URL_SAFE;
 
 pub async fn json_extract(property: String) {
-        let mut input = String::new();
-        io::stdin().read_to_string(&mut input).expect("Failed to read from stdin");
-        let json: Value = serde_json::from_str(&input).expect("Failed to parse JSON");
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).expect("Failed to read from stdin");
+    let json: Value = serde_json::from_str(&input).expect("Failed to parse JSON");
 
-        let filter: &str = &format!("/{}", property);
-        match json.pointer(filter) {
-            Some(value) => println!("{}", value),
-            None => eprintln!("Field not found in the provided JSON"),
-        }
+    let filter: &str = &format!("/{}", property);
+    match json.pointer(filter) {
+        Some(value) => match value {
+            Value::String(s) => println!("{}", s),       // Print raw string if it's a JSON string
+            _ => println!("{}", value),                  // Print normally for non-string values
+        },
+        None => eprintln!("Field not found in the provided JSON"),
+    }
 }
 
 #[derive(Serialize)]

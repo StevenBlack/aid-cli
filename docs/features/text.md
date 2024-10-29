@@ -68,3 +68,26 @@ aid text lines -i .\README.md -l 10
 | aid math eval          | Evaluates a math expression                                |
 | aid math plot          | Plot a math expression                                     |
 ```
+
+### aid text replace
+```
+  aid text replace  Find and replace text using a regex pattern in the given input string.
+            -m, --match <PATTERN>    Regex pattern to match substrings to replace.
+            -r, --replace <REPLACE>  Replacement string for matched substrings.
+
+-----input-----
+aid text replace -m dog -r rock  "The quick brown fox jumps over the lazy dog."
+-----output-----
+The quick brown fox jumps over the lazy rock.
+```
+
+### aid text count
+```
+  aid text count  Count occurrences of a regex pattern in the given input string.
+            -m, --match <PATTERN>  Regex pattern to match and count in the input.
+
+-----input-----
+aid text count -m in "The rain in Spain stays mainly in the plain."
+-----output-----
+6
+```

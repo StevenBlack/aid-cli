@@ -316,7 +316,43 @@ enum TextCommands {
     },
 
     #[command(about = "Generates a random guid")]
-    Guid
+    Guid,
+    #[command(about = "Find and replace text using a regex pattern in the given input string.")]
+    Replace {
+        #[arg(
+            short = 'm',
+            long = "match",
+            help = "Regex pattern to match substrings to replace."
+        )]
+        pattern: String,
+        
+        #[arg(
+            short = 'r',
+            long = "replace",
+            help = "Replacement string for matched substrings."
+        )]
+        replace: String,
+        
+        #[arg(
+            trailing_var_arg = true,
+        )]
+        c_args: Vec<String>,
+    },
+    
+    #[command(about = "Count occurrences of a regex pattern in the given input string.")]
+    Count {
+        #[arg(
+            short = 'm',
+            long = "match",
+            help = "Regex pattern to match and count in the input."
+        )]
+        pattern: String,
+        
+        #[arg(
+            trailing_var_arg = true,
+        )]
+        c_args: Vec<String>,
+    },
 }
 
 #[derive(Subcommand, Debug, Clone)]
@@ -564,6 +600,12 @@ async fn main() {
             }
             TextCommands::UrlDecode {c_args} => {
                 text_commands::url_decode(&input_utils::args_or_readline(c_args))
+            },
+            TextCommands::Replace {pattern, replace, c_args} => {
+                text_commands::replace(input_utils::args_or_readline(c_args), &pattern, &replace)
+            },
+            TextCommands::Count {pattern, c_args} => {
+                text_commands::count(input_utils::args_or_readline(c_args), &pattern)
             }
         },
 
